@@ -30,7 +30,7 @@ const data = [
   },
   {
     backgroundColor: '#fe6e58',
-    image: require('../../assets/images/bike.png'),
+    image: require('../../assets/images/pizza.png'),
     title: 'The Title',
     subtitle: 'This is the subtitle that sumplements the title.',
   },
