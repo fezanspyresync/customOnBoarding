@@ -1,12 +1,19 @@
 import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {storage} from '../../App';
 
 const Splash = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('OnboardingScreen');
+      const onBoarding = storage.getBoolean('isBoardingDisplay');
+      if (onBoarding == false) {
+        navigation.replace('auth');
+      } else {
+        navigation.replace('OnboardingScreen');
+      }
+      //   navigation.replace('OnboardingScreen');
     }, 1000);
   }, []);
   return (

@@ -4,29 +4,32 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
+  Text,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {Text} from 'react-native-elements';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {Alert} from 'react-native';
 import {counterEvent} from 'react-native/Libraries/Performance/Systrace';
+import {useNavigation} from '@react-navigation/native';
+import {storage} from '../../App';
 
 const data = [
   {
     backgroundColor: '#fff',
     image: require('../../assets/images/Illustartion.png'),
-    title: 'Onboarding',
-    subtitle: 'Done with React Native Onboarding Swiper',
+    title: 'Select the Favorities Menu',
+    subtitle:
+      'Now eat well, dont leave the house,You can choose your favorite food only with one click',
     titleStyles: {color: 'red'}, // overwrite default color
   },
   {
     backgroundColor: '#fe6e58',
     image: require('../../assets/images/Illustration.png'),
-    title: 'The Title',
-    subtitle: 'This is the subtitle that sumplements the title.',
+    title: 'Good food at a cheap price',
+    subtitle: 'You can eat at expensive restaurants with affordable price',
   },
   {
     backgroundColor: '#fe6e58',
@@ -39,6 +42,7 @@ const data = [
 const CustomButtons = () => {
   const scrollViewRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigation = useNavigation();
   //   useEffect(() => {
   //     // Ensure that scrollViewRef.current is set when the component mounts
   //     if (scrollViewRef.current) {
@@ -96,19 +100,23 @@ const CustomButtons = () => {
                     source={item.image}
                     style={{height: '100%', width: '100%'}}
                   />
-                  <Text
-                    style={{
-                      color: '#000',
-                      textAlign: 'center',
-                      fontFamily: 'Avenir-Regular',
-                      fontSize: 22,
-                      fontStyle: 'normal',
-                      fontWeight: 800,
-                      // lineHeight: 1.31023,
-                      // width: '30%',
-                    }}>
-                    {`${item.title}`}
-                  </Text>
+                  <View style={{alignItems: 'center'}}>
+                    <Text
+                      style={{
+                        color: '#000',
+                        textAlign: 'center',
+                        fontFamily: 'Avenir-Regular',
+                        fontSize: 22,
+                        fontStyle: 'normal',
+                        fontWeight: 800,
+                        // backgroundColor: 'blue',
+                        // lineHeight: 1.31023,
+                        // width: '30%',
+                        width: '40%',
+                      }}>
+                      {`${item.title}`}
+                    </Text>
+                  </View>
                   <View
                     style={{
                       alignItems: 'center',
@@ -116,9 +124,12 @@ const CustomButtons = () => {
                     }}>
                     <Text
                       style={{
+                        color: '#4B5563',
                         textAlign: 'center',
                         width: '60%',
+                        fontSize: 14,
                         fontWeight: '400',
+                        // backgroundColor: 'blue',
                       }}>
                       {item.subtitle}
                     </Text>
@@ -137,9 +148,11 @@ const CustomButtons = () => {
           }}>
           <View style={{alignItems: 'center', marginTop: 10}}>
             <TouchableOpacity
-              onPress={() => {
+              onPress={async () => {
                 if (currentIndex == data.length - 1) {
                   Alert.alert('plesae navigate');
+                  navigation.replace('auth');
+                  storage.set('isBoardingDisplay', false);
                 } else {
                   handleNextButtonPress();
                 }
